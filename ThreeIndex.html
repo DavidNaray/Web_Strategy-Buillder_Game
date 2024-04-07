@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<!-- <link rel="stylesheet" href="css.css"> -->
+	<title>My first three.js app</title>
+	<script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js"
+            }
+        }
+    </script>
+	<style>
+		body { margin: 0; }
+		.selectBox {
+			border: 1px solid #55aaff;
+			background-color: rgba(75, 160, 255, 0.3);
+			position: fixed;
+		}
+	</style>
+</head>
+<body>
+	<!-- <p>BOOOMMMM</p>
+	<img src="ghast.jpg"> -->
+	
+	<script  src="./main.js" type="module"></script>
+	<div id="container" style="width: 100%;height: 100%;position: relative;">
+		<div id="UI" style="position: fixed;height: 15vw;width: 35vw;display: flex;bottom:0;background-color: pink;">
+			
+			<div style="float: left;height: 100%;width: 40%;background-color: #03315f;;">
+				<div style="float: right;height: 100%;width: 20%;">
+					<div style="float: left;width: 100%;aspect-ratio: 1/1;display: flex;align-items: center;justify-content: center;background-image: url('threejsFold/humanIcon.jpg');background-size: 100% 100%;"></div>
+				</div>
+				<div style="float:left;width: 80%;height: 20%;background-color: navy;">
+					<div style="float:left;height: 100%;display: flex;align-items: center;justify-content: center;margin-right: 0.5vw;margin-left: 0.5vw;">
+						<div style="float:left;height: 70%;aspect-ratio: 1/1;overflow:hidden;background-image: url('threejsFold/HouseIcon.png');background-size: 100% 100%;"></div>
+					</div>
+					<div style="float:none;height: 100%;overflow:hidden;display: flex;align-items: center;color: white;">
+					0/0</div>
+				</div>
+				<div style="float:left;width: 80%;height: 80%;  display: flex;flex-flow: column;">
+					<p style="margin:0.25vw 0 0 0.5vw;width: calc(100% - 0.5vw);flex: 0 1 auto;font-size: 1.3vw;color: white;">Resources</p>
+					<div style="flex: 1 1 auto;">
+						<div  style="width: 100%;height:25%;display: flex;align-items: center;">
+							<!-- <img src="Gold.png" style="height: 10%;aspect-ratio: 1/1;"> -->
+
+							<div style="margin-left: 0.5vw;margin-right: 0.5vw;float: left;height: 70%;aspect-ratio: 1/1;background-image: url('threejsFold/FoodIcon.png');background-size: 100% 100%;"></div>
+							<div id="food" data-value="0" style="display: flex;align-items: center;height: 100%;float:none;overflow:hidden;color: white;">0000</div>
+						</div>
+						<div  style="width: 100%;height:25%;display: flex;align-items: center;">
+							<div style="margin-left: 0.5vw;margin-right: 0.5vw;float: left;height: 70%;aspect-ratio: 1/1;background-image: url('threejsFold/WoodIcon.jpg');background-size: 100% 100%;"></div>
+							<div id="wood"style="display: flex;align-items: center;height: 100%;float:none;overflow:hidden;color: white;">0000</div>
+						</div>
+						<div  style="width: 100%;height:25%;display: flex;align-items: center;">
+							<div style="margin-left: 0.5vw;margin-right: 0.5vw;float: left;height: 70%;aspect-ratio: 1/1;background-image: url('threejsFold/Gold.png');background-size: 100% 100%;"></div>
+							<div id="gold"style="display: flex;align-items: center;height: 100%;float:none;overflow:hidden;color: white;">0000</div>
+						</div>
+						<div  style="width: 100%;height:25%;display: flex;align-items: center;">
+							<div style="margin-left: 0.5vw;margin-right: 0.5vw;float: left;height: 70%;aspect-ratio: 1/1;background-image: url('threejsFold/StoneIcon.jpg');background-size: 100% 100%;"></div>
+							<div id="stone" style="display: flex;align-items: center;height: 100%;float:none;overflow:hidden;color: white;">0000</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			<div style="background-color: red;height: 100%;width: 60%;">
+				<div style="height: 20%;width: 100%;background-color: white;display: flex;align-items: center;">
+					<p style="margin: 0;">Idle Citizens:</p>
+				</div>			
+				<button style="display: block;"value="createCitizen">Create Citizen</button>
+				<button style="display: block;"value="Food" >Add villager to Food</button>
+				<button style="display: block;"value="Wood">Add villager to Wood</button>
+				<button style="display: block;"value="Gold">Add villager to Gold</button>
+				<button style="display: block;"value="Stone">Add villager to Stone</button>
+				<button style="display: block;"value="House">Create House</button>
+			</div>
+
+		</div>
+	</div>
+	
+	
+</body>
+
+</html>
