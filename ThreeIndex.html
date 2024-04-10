@@ -23,49 +23,86 @@
 <body>
 	<!-- <p>BOOOMMMM</p>
 	<img src="ghast.jpg"> -->
-	
+
 	<script  src="./main.js" type="module"></script>
 	<div id="container" style="width: 100%;height: 100%;position: relative;">
-		<div id="UI" style="position: fixed;height: 15vw;width: 35vw;display: flex;bottom:0;background-color: pink;">
+		<div id="UI" style="position: fixed;height: 13vw;width: 35vw;display: flex;bottom:0;background-color: transparent;">
 			
-			<div style="float: left;height: 100%;width: 40%;background-color: #03315f;;">
-				<div style="float: right;height: 100%;width: 20%;">
-					<div style="float: left;width: 100%;aspect-ratio: 1/1;display: flex;align-items: center;justify-content: center;background-image: url('threejsFold/humanIcon.jpg');background-size: 100% 100%;"></div>
-				</div>
-				<div style="float:left;width: 80%;height: 20%;background-color: navy;">
-					<div style="float:left;height: 100%;display: flex;align-items: center;justify-content: center;margin-right: 0.5vw;margin-left: 0.5vw;">
-						<div style="float:left;height: 70%;aspect-ratio: 1/1;overflow:hidden;background-image: url('threejsFold/HouseIcon.png');background-size: 100% 100%;"></div>
-					</div>
-					<div style="float:none;height: 100%;overflow:hidden;display: flex;align-items: center;color: white;">
-					0/0</div>
-				</div>
-				<div style="float:left;width: 80%;height: 80%;  display: flex;flex-flow: column;">
-					<p style="margin:0.25vw 0 0 0.5vw;width: calc(100% - 0.5vw);flex: 0 1 auto;font-size: 1.3vw;color: white;">Resources</p>
-					<div style="flex: 1 1 auto;">
-						<div  style="width: 100%;height:25%;display: flex;align-items: center;">
-							<!-- <img src="Gold.png" style="height: 10%;aspect-ratio: 1/1;"> -->
+			<div style="float: left;height: 100%;width: 40%;background-color: purple;;">
+				<div style="float:left;width: 100%;height: 100%;  display: flex;flex-wrap: wrap;flex-direction: column;background-color: rgb(21,37,63);">
+					<div  style="width: 100%;height:24%;background-color: navy;">
+						<div style="height:95%;width: 100%;">	
+							<div style="height: 100%;width: 50%;float: left;display: flex;align-items: center">
+								<div style="margin-left: 0.5vw;margin-right: 0.5vw;float: left;height: 1.5vw;aspect-ratio: 1/1;background-image: url('threejsFold/HouseIcon.png');background-size: 100% 100%;"></div>
+								<p style="margin:0;font-size: 1.25vw;color:white;float: left;">0/0</p>
+							</div>
+							<div style="height: 100%;width: 50%;float: left;display: flex;align-items: center">
+								<div style="height: 1.5vw;margin-left: 0.5vw;margin-right: 0.5vw;aspect-ratio: 1/1;background-image: url('threejsFold/humanIcon.jpg');background-size: 100% 100%;"></div>
+								<p style="margin:0;font-size: 1.25vw;color:white;float: left;">0/0</p>
+							</div>
+						</div>
+						<div style="height:5%;width: 100%;background-color: white;"></div>
 
-							<div style="margin-left: 0.5vw;margin-right: 0.5vw;float: left;height: 70%;aspect-ratio: 1/1;background-image: url('threejsFold/FoodIcon.png');background-size: 100% 100%;"></div>
-							<div id="food" data-value="0" style="display: flex;align-items: center;height: 100%;float:none;overflow:hidden;color: white;">0000</div>
-						</div>
-						<div  style="width: 100%;height:25%;display: flex;align-items: center;">
-							<div style="margin-left: 0.5vw;margin-right: 0.5vw;float: left;height: 70%;aspect-ratio: 1/1;background-image: url('threejsFold/WoodIcon.jpg');background-size: 100% 100%;"></div>
-							<div id="wood"style="display: flex;align-items: center;height: 100%;float:none;overflow:hidden;color: white;">0000</div>
-						</div>
-						<div  style="width: 100%;height:25%;display: flex;align-items: center;">
-							<div style="margin-left: 0.5vw;margin-right: 0.5vw;float: left;height: 70%;aspect-ratio: 1/1;background-image: url('threejsFold/Gold.png');background-size: 100% 100%;"></div>
-							<div id="gold"style="display: flex;align-items: center;height: 100%;float:none;overflow:hidden;color: white;">0000</div>
-						</div>
-						<div  style="width: 100%;height:25%;display: flex;align-items: center;">
-							<div style="margin-left: 0.5vw;margin-right: 0.5vw;float: left;height: 70%;aspect-ratio: 1/1;background-image: url('threejsFold/StoneIcon.jpg');background-size: 100% 100%;"></div>
-							<div id="stone" style="display: flex;align-items: center;height: 100%;float:none;overflow:hidden;color: white;">0000</div>
-						</div>
 					</div>
-					
+
+					<div  style="width: 100%;height:18%;display: flex;align-items: center;margin-top: 3%;">
+						<div style="margin-left: 0.5vw;margin-right: 0.5vw;float: left;height:  1.5vw;aspect-ratio: 1/1;background-image: url('threejsFold/FoodIcon.png');background-size: 100% 100%;"></div>
+						<div id="food" data-value="0" style="margin:0;font-size: 1.25vw;color:white">0000</div>
+					</div>
+					<div  style="width: 100%;height:18%;display: flex;align-items: center;">
+						<div style="margin-left: 0.5vw;margin-right: 0.5vw;float: left;height:  1.5vw;aspect-ratio: 1/1;background-image: url('threejsFold/WoodIcon.jpg');background-size: 100% 100%;"></div>
+						<div id="wood" style="margin:0;font-size: 1.25vw;color:white">0000</div>
+					</div>
+					<div  style="width: 100%;height:18%;display: flex;align-items: center;">
+						<div style="margin-left: 0.5vw;margin-right: 0.5vw;float: left;height:  1.5vw;aspect-ratio: 1/1;background-image: url('threejsFold/Gold.png');background-size: 100% 100%;"></div>
+						<div id="gold" style="margin:0;font-size: 1.25vw;color:white">0000</div>
+					</div>
+					<div  style="width: 100%;height:18%;display: flex;align-items: center;">
+						<div style="margin-left: 0.5vw;margin-right: 0.5vw;float: left;height:  1.5vw;aspect-ratio: 1/1;background-image: url('threejsFold/StoneIcon.jpg');background-size: 100% 100%;"></div>
+						<div id="stone" style="margin:0;font-size: 1.25vw;color:white">0000</div>
+					</div>
 				</div>
 			</div>
-			<div style="background-color: red;height: 100%;width: 60%;">
-				<div style="height: 20%;width: 100%;background-color: white;display: flex;align-items: center;">
+			<div style="background-color: transparent;height: calc(100% - 0.25vw);width: calc(60% - 0.5vw);padding:0.25vw 0.25vw 0 0.25vw;">
+				<div style="height: 30%;width: 100%;;background-color: transparent;position: relative;">
+					<div style="margin-right: 0.25vw;margin-bottom: 0.25vw;float:left;height: calc(100% - 0.25vw);background-color: rgb(21,37,63);aspect-ratio: 1/1;border-radius: 50%;"></div>
+					<div style="z-index: -1;;bottom:0;position: absolute;height: calc(50% );aspect-ratio: 2/1;background-color: transparent;border-bottom-right-radius: 1.75vw;box-shadow: 1.75vw 0 0 0 rgb(21,37,63)"></div>
+					<div style="padding:0.75vw;background-color: rgb(21,37,63);float:none;overflow: hidden;height: calc(100% - 1.45vw);border-top-left-radius: 1vw;color:white;font-size: 1.25vw;">Villager</div>
+				</div>
+				<!-- <div style="height: 30%;background-color: black;aspect-ratio: 1/1;border-radius: 50%;border:solid white 0.2vw">
+					<div></div>
+				</div> -->
+				<div style="height: calc(70%);width: calc(100% );background-color: rgb(21,37,63);border-top-left-radius: 1vw;">
+					<div style="width: calc(44% - 0.75vw);height: calc(100% - 0.75vw);float:left;padding:0.5vw 0.25vw 0.25vw 0.5vw">
+						<div style="width: 100%;height: 100%;background-color: pink;">
+						
+						</div>
+					</div>
+					<div style="width: calc(56% - 0.75vw);height: calc(100% - 0.75vw);float:left;padding:0.5vw 0.5vw 0.25vw 0.25vw">
+						<div style="width: calc(100%);height: calc(100%);background-color: transparent;display: grid;grid-template-columns: 1fr;grid-row-gap: 0.3vw;">
+							<div style="background-color: transparent;display: grid;grid-template-columns: 1fr 1fr 1fr 1fr ;grid-column-gap: 0.4vw;">
+								<div style="background: linear-gradient(rgb(14,16,53), rgb(21,37,63));aspect-ratio: 1;"></div>
+								<div style="background: linear-gradient(rgb(14,16,53), rgb(21,37,63));aspect-ratio: 1;"></div>
+								<div style="background: linear-gradient(rgb(14,16,53), rgb(21,37,63));aspect-ratio: 1;"></div>
+								<div style="background: linear-gradient(rgb(14,16,53), rgb(21,37,63));aspect-ratio: 1;"></div>
+							</div>
+							<div style="background-color: transparent;display: grid;grid-template-columns: 1fr 1fr 1fr 1fr ;grid-column-gap: 0.4vw;">
+								<div style="background: linear-gradient(rgb(14,16,53), rgb(21,37,63));aspect-ratio: 1;"></div>
+								<div style="background: linear-gradient(rgb(14,16,53), rgb(21,37,63));aspect-ratio: 1;"></div>
+								<div style="background: linear-gradient(rgb(14,16,53), rgb(21,37,63));aspect-ratio: 1;"></div>
+								<div style="background: linear-gradient(rgb(14,16,53), rgb(21,37,63));aspect-ratio: 1;"></div>
+							</div>
+							<div style="background-color: transparent;display: grid;grid-template-columns: 1fr 1fr 1fr 1fr;grid-column-gap: 0.4vw;">
+								<div style="background: linear-gradient(rgb(14,16,53), rgb(21,37,63));aspect-ratio: 1;"></div>
+								<div style="background: linear-gradient(rgb(14,16,53), rgb(21,37,63));aspect-ratio: 1;"></div>
+								<div style="background: linear-gradient(rgb(14,16,53), rgb(21,37,63));aspect-ratio: 1;"></div>
+								<div style="background: linear-gradient(rgb(14,16,53), rgb(21,37,63));aspect-ratio: 1;"></div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<!-- <div style="height: 20%;width: 100%;background-color: pink;display: flex;align-items: center;">
 					<p style="margin: 0;">Idle Citizens:</p>
 				</div>			
 				<button style="display: block;"value="createCitizen">Create Citizen</button>
@@ -73,7 +110,7 @@
 				<button style="display: block;"value="Wood">Add villager to Wood</button>
 				<button style="display: block;"value="Gold">Add villager to Gold</button>
 				<button style="display: block;"value="Stone">Add villager to Stone</button>
-				<button style="display: block;"value="House">Create House</button>
+				<button style="display: block;"value="House">Create House</button> -->
 			</div>
 
 		</div>

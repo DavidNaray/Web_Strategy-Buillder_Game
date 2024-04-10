@@ -5,6 +5,7 @@ import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.160.1/examples
 import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/loaders/GLTFLoader.js';
 import { SelectionBox } from 'https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/interactive/SelectionBox.js';
 import { SelectionHelper } from 'https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/interactive/SelectionHelper.js';
+var cube;
 
 var food=0;
 var stone=0;
@@ -12,6 +13,7 @@ var gold=0;
 var wood=0;
 var CitizenCount=0;
 var housing=0;
+var IdleCitizens=[]
 
 class Citizen{
 	constructor(state,health){
@@ -54,75 +56,54 @@ class Citizen{
 
 }
 
-var IdleCitizens=[]
-
-
-
-var container = document.createElement( 'div' );
-container.style.position="absolute"
-container.style.height="100%"
-container.style.width="100%"
-// document.body.appendChild( container );
 const scene = new THREE.Scene();
 scene.background=new THREE.Color("#ADD8E6");
 
-
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
-// document.body.appendChild( renderer.domElement );
-// container.appendChild(renderer.domElement)
 document.getElementById("container").insertBefore(renderer.domElement, document.getElementById("container").firstChild)
+
 const camera = new THREE.PerspectiveCamera( 75, renderer.domElement.width/renderer.domElement.height, 0.1, 10000 );//window.innerWidth / window.innerHeight
-console.log(renderer.domElement)
+camera.position.z = 5;
+camera.position.y = 1;
+camera.lookAt(new THREE.Vector3(0,0,0))
+
 const controls = new OrbitControls( camera, renderer.domElement );
+
+let ambientLight = new THREE.AmbientLight(new THREE.Color('hsl(0, 0%, 100%)'), 3);
+scene.add(ambientLight);
+
+{//the cube that shows closest vertice to pointer
 const geometry = new THREE.BoxGeometry( 0.02, 0.02, 0.02 );
-const material = new THREE.MeshLambertMaterial({color: 0x0000ff, transparent: true, opacity: 0.5})
-// new THREE.MeshBasicMaterial( { color: 0xff0000 } ); 
-
-const cube = new THREE.Mesh( geometry, material );
+const material = new THREE.MeshLambertMaterial({color: 0x0000ff, transparent: true, opacity: 0.5}) 
+cube = new THREE.Mesh( geometry, material );
 scene.add( cube );
-
-function getRandomInt(max) {
-	return Math.floor(Math.random() * max)-4;
 }
 
-cube.position.y=0.25
-cube.position.x=getRandomInt(8)
-cube.position.z=getRandomInt(8)
-
-const PlaneGeometry = new THREE.PlaneGeometry( 12,12,599, 599 );
-var vertices = []
-console.log(vertices)
-
-function hmmm(canv,mat){
-	// canv.getContext('2d').fillRect(0,0,2,2)
-	mat.map.needsUpdate=true
-	console.log("yo")
-}
-
+//recieve the image to generate 9 grids from
 const texMap=new Image()
 const DispMap=new Image()
 texMap.src="threejsFold/TextureMap.png"
 DispMap.src="threejsFold/heightmapTexture.png"
 
-var textureCanvas=document.createElement('canvas');
-var DisplacementCanvas=document.createElement('canvas');
-DisplacementCanvas.w
-var Grassmaterial = new THREE.CanvasTexture(textureCanvas)
-var dispMap= new THREE.CanvasTexture(DisplacementCanvas)
-Grassmaterial=new THREE.MeshLambertMaterial( { map: Grassmaterial,wireframe:false } )//,displacementMap:dispMap
-var plane = new THREE.Mesh( PlaneGeometry, Grassmaterial );
-plane.matrixAutoUpdate = true;
-texMap.onload=function(){
-	// console.log(texMap.height,"MAp")
-	
-	textureCanvas.height=texMap.height
-	textureCanvas.width=texMap.width
-	textureCanvas.style.zIndex="100000"
-	var rad = 90 * Math.PI / 180;
+var manyCanvas=[]
+var manyGrids=[]
+var manyPlanes=[]
+function GenerateGrids(){//generate 9 grids for the image
+	for(var i=0;i<9;i++){
+		var PlaneGeometry = new THREE.PlaneGeometry( 4,4,200, 200 );//12/3, 600/3
+		manyGrids.push(PlaneGeometry)
+	}
+}
+GenerateGrids()
 
-	// textureCanvas.getContext('2d').rotate(rad)
-	textureCanvas.getContext('2d').drawImage(texMap, 0, 0,texMap.width,texMap.height)
+texMap.onload=function(){
+	// var textureCanvas=document.createElement('canvas');
+	// textureCanvas.height=texMap.height/3
+	// textureCanvas.width=texMap.width/3
+	// textureCanvas.style.zIndex="100000"
+	// textureCanvas.getContext('2d').drawImage(texMap, 0, 0,texMap.width,texMap.height)
+	{
 	// textureCanvas.getContext('2d').restore();
 	// document.body.appendChild(textureCanvas)
 	// Grassmaterial.update()
@@ -136,40 +117,87 @@ texMap.onload=function(){
 	// vertex.fromBufferAttribute( attribute, 0 );
 	// // vertices=plane.geometry.attributes.position.array
 	// console.log(plane.localToWorld( vertex ))
-	
-	// plane.position.z=0
-	plane.rotation.x -= Math.PI/2;
-	
-	// setTimeout(function() {
-	// 	hmmm(textureCanvas,Grassmaterial)
-	// }, 2000);
+	}
+	// for(var i=0;i<3;i++){
+	// 	for(var j=0;j<3;j++){
+	// 		textureCanvas.getContext('2d').drawImage(texMap, (texMap.width/3)*i, (texMap.height/3)*j,texMap.width,texMap.height)
+	// 	}
+	// }
+	var relax=0;
+	var bingus=0;
+
+	manyGrids.forEach((element) => {
+		var textureCanvas=document.createElement('canvas');
+		textureCanvas.height=texMap.height/3
+		textureCanvas.width=texMap.width/3
+		textureCanvas.style.zIndex="100000"
+		// element.position.set(-4+bingus*4,0,-4+relax*4)//4-4*x,0,4-4*y)	
+		textureCanvas.getContext('2d').drawImage(texMap, (texMap.width/3)*bingus-bingus, (texMap.height/3)*relax-relax,texMap.width/3,texMap.height/3,0,0,texMap.width/3,texMap.height/3)	
+		manyCanvas.push(textureCanvas)
+		if(relax>1){
+			relax=0
+			bingus++
+		}else{
+			relax++
+		}
+		console.log(element)
+		var Grassmaterial = new THREE.CanvasTexture(textureCanvas)
+		Grassmaterial=new THREE.MeshLambertMaterial( { map: Grassmaterial,wireframe:false } )
+		var plane = new THREE.Mesh( element, Grassmaterial );
+		plane.rotation.x -= Math.PI/2;
+		plane.matrixAutoUpdate = true;
+		manyPlanes.push(plane)
+		}
+	)
+		
 }
 DispMap.onload=function(){
-	DisplacementCanvas.height=DispMap.height
-	DisplacementCanvas.width=DispMap.width
-	DisplacementCanvas.style.zIndex="100000"
-	DisplacementCanvas.getContext('2d',{willReadFrequently:true}).drawImage(DispMap, 0, 0,DispMap.width,DispMap.height)
+	// var DisplacementCanvas=document.createElement('canvas');
+	// DisplacementCanvas.height=DispMap.height/3
+	// DisplacementCanvas.width=DispMap.width/3
+	// DisplacementCanvas.style.zIndex="100000"
+	// DisplacementCanvas.getContext('2d',{willReadFrequently:true}).drawImage(DispMap, 0, 0,DispMap.width,DispMap.height)
 	var i=0
-	// var vertices=plane.geometry.getAttribute( 'position' )
-	// var vertex = new THREE.Vector3();
-	// console.log("HW",DispMap.height,DispMap.width)
-	for(var y=0;y<DispMap.height+1;y++){
-		for(var x=0;x<DispMap.width+1;x++){
-			
-			var data=DisplacementCanvas.getContext('2d').getImageData(x,y,1,1).data
-			// console.log("huh",data[0]/255)
-			//plane.geometry.vertices[i]
-			// vertice.set(vertice.position.x,data[0]/255,vertice.position.y);// this way you can move each vertex coordinates
-			// vertex.fromBufferAttribute( vertices, i ).set(vertex.x,data[0]/255,vertex.y);
-			// console.log(vertex.fromBufferAttribute( vertices, i ))
-			// console.log(data[0]/255)
-			// 
-			// vertex.fromBufferAttribute( vertices, i ).setZ(data[0]/255);
-			i = (y * (plane.geometry.parameters.widthSegments+1)) + x;
-			plane.geometry.attributes.position.setZ(i, data[0]/255);
-			
+	var relax=0;
+	var bingus=0;
+	manyPlanes.forEach((element) => {
+
+		//get image starts at 0, hence, when image is 600, the final here is 599, causing image data at 600 to be 0, creating the drop
+		//need to go from the start to the beginning of the next, so the final one doesnt need the +1 in the loop...
+		var DisplacementCanvas=document.createElement('canvas');
+		DisplacementCanvas.height=DispMap.height/3
+		DisplacementCanvas.width=DispMap.width/3
+		DisplacementCanvas.style.zIndex="100000"
+		// console.log(relax,"RELAX")
+		DisplacementCanvas.getContext('2d',{willReadFrequently:true}).drawImage(DispMap, (DispMap.width/3)*bingus-bingus, (DispMap.height/3)*relax-relax,DispMap.width/3,DispMap.height/3,0, 0,DispMap.width/3,DispMap.height/3)
+		element.material.displacementMap = new THREE.CanvasTexture(DisplacementCanvas) //new THREE.Texture(DisplacementCanvas);
+		// console.log("HEIGHT",DispMap.height/3,element.geometry.parameters.widthSegments)
+		// for(var y=1;y<=DispMap.height/3+1;y++){//+1//so 200 pixel blocks per grid
+		// 	console.log("YIPEE",y)
+		// 	for(var x=1;x<=DispMap.width/3+1;x++){//+1
+				
+		// 		var data=DisplacementCanvas.getContext('2d').getImageData((x-1)+(DispMap.width/3)*bingus,(y-1)+(DispMap.height/3)*relax,1,1).data
+		// 		//plane is replaced by element
+		// 		i = ((y-1) * (element.geometry.parameters.widthSegments+1)) + (x-1);
+		// 		element.geometry.attributes.position.setZ(i, data[0]/255);
+				
+		// 	}
+		// }	
+		element.position.set(-4+bingus*4,0,-4+relax*4)//4-4*x,0,4-4*y)		
+		if(relax>1){
+			relax=0
+			bingus++
+		}else{
+			relax++
 		}
-	}
+		// element.geometry.attributes.position.needsUpdate = true;
+		// element.geometry.computeVertexNormals();
+		// element.matrixAutoUpdate = true;
+		
+		scene.add( element );
+	})
+	
+	{
 	// plane.geometry.attributes.position.setZ(0, 1);
 	// var widthStep=DispMap.width/plane.geometry.parameters.widthSegments+1
 	// var heightStep=DispMap.height/plane.geometry.parameters.heightSegments+1
@@ -182,17 +210,19 @@ DispMap.onload=function(){
 	// 	  plane.geometry.attributes.position.setZ(idx, displacementVal);
 	// 	}
 	//   }
+	}
 
-	plane.geometry.attributes.position.needsUpdate = true;
-	plane.geometry.computeVertexNormals();
+
 
 
 
 	// console.log(plane.geometry.getAttribute("position"))
 	// console.log(vertex.fromBufferAttribute( vertices, 500 ))
 	// .set(vertex.x,data[0]/255,vertex.y);
-	scene.add( plane );
+	// scene.add( plane );
 }
+
+
 function FindPixelPositionForVertexPosition(position){//adjustX,adjustY
 	//each grid is 12 by 12 in world size, 600 by 600 in pixels, 
 	//center chunk is centered on the world so + 6 x and +6 y  
@@ -211,11 +241,8 @@ function FindPixelPositionForVertexPosition(position){//adjustX,adjustY
 
 
 
-camera.position.z = 5;
-camera.position.y = 1;
-camera.lookAt(new THREE.Vector3(0,0,0))
-let ambientLight = new THREE.AmbientLight(new THREE.Color('hsl(0, 0%, 100%)'), 3);
-scene.add(ambientLight);
+
+
 const loader = new GLTFLoader();
 loader.load(
 	// resource URL
